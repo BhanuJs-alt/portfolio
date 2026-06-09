@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhanu Pratap Patel - Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+            --text-muted: #9ca3af;
+            --accent-blue: #0969da;
+            --border-line: #e1e4e8;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        /* Print Optimization Settings - Optimized Margins */
+        @page {
+            size: letter;
+            margin: 0.4in 0.5in;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            line-height: 1.4;
+            background-color: #ffffff;
+            font-size: 13.5px;
+            -webkit-print-color-adjust: exact;
+        }
+
+        /* Resume Header Container */
+        header {
+            text-align: center;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 2px;
+            color: var(--text-dark);
+        }
+
+        .subtitle {
+            font-family: var(--font-code);
+            font-size: 12px;
+            color: var(--accent-blue);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            font-size: 11.5px;
+            color: var(--text-light);
+        }
+
+        .contact-info a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+            color: var(--accent-blue);
+        }
+
+        /* Section Layout Structure */
+        section {
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-line);
+            padding-bottom: 2px;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        /* Objective Block */
+        .summary-text {
+            color: var(--text-light);
+            text-align: justify;
+        }
+
+        /* Technical Matrix Grid */
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .skills-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            margin-bottom: 4px;
+        }
+
+        .skills-category {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 13px;
+        }
+
+        .skills-list {
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        /* Project Display Architecture */
+        .project-item {
+            margin-bottom: 12px;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .project-name {
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .project-links {
+            font-family: var(--font-code);
+            font-size: 11px;
+        }
+
+        .project-links a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            margin-left: 8px;
+        }
+
+        .project-links a:hover {
+            text-decoration: underline;
+        }
+
+        .project-tags {
+            font-family: var(--font-code);
+            font-size: 11px;
+            color: var(--accent-blue);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .bullet-list {
+            list-style-type: square;
+            padding-left: 18px;
+            color: var(--text-light);
+        }
+
+        .bullet-list li {
+            margin-bottom: 2px;
+            text-align: justify;
+        }
+
+        /* Fixed Education Components Layout */
+        .edu-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .institution {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .location-date {
+            font-size: 12px;
+            color: var(--text-light);
+            text-align: right;
+            min-width: 180px;
+        }
+        
+        .edu-date-code {
+            font-family: var(--font-code); 
+            font-size: 11px; 
+            margin-top: 1px;
+            color: var(--accent-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bhanu Pratap Patel</h1>
+        <div class="subtitle">// Full Stack MERN Developer</div>
+        <div class="contact-info">
+            <span>Jabalpur, MP, India</span>
+            <span>•</span>
+            <a href="mailto:bhanupatel22666@gmail.com">bhanupatel22666@gmail.com</a>
+            <span>•</span>
+            <a href="https://github.com/BhanuJs-alt" target="_blank">github.com/BhanuJs-alt</a>
+            <span>•</span>
+            <a href="https://www.linkedin.com/in/bhanu-pratap-patel-b9a108355" target="_blank">linkedin.com/in/bhanu-pratap-patel-b9a108355</a>
+        </div>
+    </header>
+
+    <section>
+        <div class="section-title">Professional Summary</div>
+        <p class="summary-text">
+            Aspiring Full Stack MERN Developer with hands-on experience building responsive, performance-driven web applications using React, Node.js, Express, and MongoDB. Adept at turning complex visual logic into clean structural markup, debugging core runtime logic, and practicing modular component management to deliver smooth browser experiences.
+        </p>
+    </section>
+
+    <section>
+        <div class="section-title">Technical Skills</div>
+        <div class="skills-table">
+            <div class="skills-row">
+                <div class="skills-category">Languages:</div>
+                <div class="skills-list">JavaScript (ES6+), Java, C, C++</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-category">Front-End Stack:</div>
+                <div class="skills-list">React.js, HTML5, CSS3, DOM Manipulation</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-category">Back-End / DBMS:</div>
+                <div class="skills-list">Node.js, Express.js, MongoDB, MySQL</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-category">Tools & Systems:</div>
+                <div class="skills-list">Git, GitHub, Vercel, RESTful APIs, LocalStorage</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-title">Key Projects</div>
+
+        <div class="project-item">
+            <div class="project-header">
+                <div class="project-name">Real-Time WeatherNow Dashboard</div>
+                <div class="project-links">
+                    <a href="https://github.com/BhanuJs-alt/weatherNow--real-time-weather-app" target="_blank">[Repo]</a>
+                    <a href="https://weather-now-real-time-weather-app.vercel.app/" target="_blank">[Live Demo]</a>
+                </div>
+            </div>
+            <div class="project-tags">Technologies: JavaScript, HTML5, CSS3, Third-Party Weather API</div>
+            <ul class="bullet-list">
+                <li>Engineered a sleek, responsive forecasting dashboard parsing cross-origin REST streams from a live weather engine.</li>
+                <li>Implemented logical modular cards presenting real-time statistical lookups, an hourly break down index, and 3-day conditions data.</li>
+                <li>Optimized client-side rendering mechanisms to minimize network re-fetches during high frequency structural search updates.</li>
+            </ul>
+        </div>
+
+        <div class="project-item">
+            <div class="project-header">
+                <div class="project-name">ExpenseTracker Management Suite</div>
+                <div class="project-links">
+                    <a href="https://github.com/BhanuJs-alt/expenseTracker-app" target="_blank">[Repo]</a>
+                    <a href="https://expense-tracker-app-six-indol.vercel.app/" target="_blank">[Live Demo]</a>
+                </div>
+            </div>
+            <div class="project-tags">Technologies: JavaScript (ES6), Native DOM API, CSS Variables, LocalStorage</div>
+            <ul class="bullet-list">
+                <li>Developed a robust analytical application tracking personal transaction metrics with instant state updates.</li>
+                <li>Utilized native JSON string serialization via browser LocalStorage parameters to safely persist records natively across active sessions.</li>
+                <li>Refactored conditional JavaScript runtime event handlers to maintain semantic code performance and modular design consistency.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-title">Education</div>
+        
+        <div class="edu-row">
+            <div>
+                <div class="institution">Master Of Computer Application (MCA)</div>
+                <div style="color: var(--text-light); font-size: 13px;">Relevant Coursework: Data Structures, OOP, Database Systems</div>
+            </div>
+            <div class="location-date">
+                <div>Jabalpur Engineering College</div>
+                <div style="color: var(--text-light);">Jabalpur, MP</div>
+            </div>
+        </div>
+
+        <div class="edu-row">
+            <div>
+                <div class="institution">Bachelor of Science (Computer Science)</div>
+                <div style="color: var(--text-light); font-size: 13px;">Academic Performance: 6.9 CGPA</div>
+            </div>
+            <div class="location-date">
+                <div>St. Aloysius College</div>
+                <div style="color: var(--text-light);">Jabalpur, MP</div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

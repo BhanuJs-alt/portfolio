@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Portfolio</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Global Variables & Theming */
+        :root {
+            --bg-main: #0d1117;
+            --bg-surface: #161b22;
+            --border-color: #21262d;
+            --border-hover: #30363d;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --text-dark: #484f58;
+            --accent-blue: #58a6ff;
+            --accent-green: #238636;
+            --accent-green-hover: #2ea043;
+            --syntax-red: #ff7b72;
+            --syntax-blue: #79c7ff;
+            --syntax-purple: #d2a8ff;
+            --font-code: 'Fira Code', Consolas, Monaco, monospace;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .code-font {
+            font-family: var(--font-code);
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: rgba(22, 27, 34, 0.8);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(8px);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+        .nav-logo {
+            color: var(--accent-blue);
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            font-size: 0.875rem;
+        }
+        .nav-links a:hover {
+            color: var(--accent-blue);
+            transition: color 0.2s ease;
+        }
+
+        /* Split Hero Layout Grid */
+        .hero-section {
+            padding: 80px 0;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        /* Terminal Window Component */
+        .terminal {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        .terminal-header {
+            background-color: var(--bg-main);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot-red { background-color: #ff5f56; }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #27c93f; }
+        
+        .terminal-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .terminal-body {
+            padding: 24px;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .prompt-line span {
+            margin-right: 4px;
+        }
+        .prompt-arrow { color: #28a745; }
+        .prompt-user { color: var(--accent-blue); }
+        .prompt-cmd { color: #ff79c6; }
+        
+        .indent-block {
+            padding-left: 16px;
+            color: var(--text-muted);
+        }
+        .json-key { color: var(--syntax-red); }
+        .json-val { color: var(--syntax-blue); }
+
+        /* Button Group Wrapper */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: var(--accent-green);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-green-hover);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent-blue);
+            border: 1px solid var(--border-color);
+        }
+        .btn-secondary:hover {
+            background-color: var(--bg-main);
+            border-color: var(--accent-blue);
+        }
+
+        /* Profile Card Sidebar Component */
+        .profile-sidebar {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .profile-img-container {
+            background-color: var(--bg-main);
+            padding: 32px 16px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+         .profile-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 3px solid var(--border-color);
+            background-color: var(--bg-surface);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            overflow: hidden; /* Added to keep the image contained inside the circle */
+                    }
+
+        /* Added to ensure your picture scales and fills the circle perfectly */
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-info {
+            padding: 20px;
+        }
+        .profile-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+        }
+        .profile-title {
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            margin-bottom: 16px;
+        }
+        .profile-meta-list {
+            list-style: none;
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+        }
+        .profile-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Tech Stack Section */
+        .stack-section {
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 64px 0;
+        }
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            font-size: 0.875rem;
+        }
+        .matrix-item {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 100px 0;
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .project-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 0.2s ease;
+        }
+        .project-card:hover {
+            border-color: var(--border-hover);
+        }
+        .card-header {
+            background-color: var(--bg-main);
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-title-file {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .card-links {
+            display: flex;
+            gap: 12px;
+            color: var(--text-muted);
+        }
+        .card-links a:hover {
+            color: white;
+            transition: color 0.2s ease;
+        }
+        .card-body {
+            padding: 24px;
+        }
+        .card-body h3 {
+            font-size: 1.125rem;
+            color: white;
+            margin-bottom: 8px;
+            transition: color 0.2s ease;
+        }
+        .project-card:hover .card-body h3 {
+            color: var(--accent-blue);
+        }
+        .card-body p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        .card-tags {
+            padding: 0 24px 24px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--accent-blue);
+        }
+        .tag {
+            background-color: var(--bg-main);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            padding: 48px 0;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        .footer-status {
+            color: #7ee787;
+            margin-bottom: 16px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .footer-links a {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .footer-links a:hover {
+            color: white;
+            transition: color 0.2s ease;
+        }
+        .copyright {
+            font-size: 0.75rem;
+            border-top: 1px solid var(--border-color);
+            max-width: 320px;
+            margin: 0 auto;
+            padding-top: 16px;
+            color: var(--text-dark);
+        }
+
+        /* Responsiveness for Smaller Screen Views */
+        @media (max-width: 768px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-logo code-font">
+                &lt;My_portfolio /&gt;
+            </div>
+            <div class="nav-links code-font">
+                <a href="#about">// about</a>
+                <a href="#stack">// stack</a>
+                <a href="#projects">// projects</a>
+                <a href="#contact">// contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header id="about" class="container hero-section">
+        
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                </div>
+                <div class="terminal-title code-font">bash — introduction.sh</div>
+                <div style="width: 40px;"></div>
+            </div>
+            <div class="terminal-body code-font">
+                <div class="prompt-line">
+                    <span class="prompt-arrow">➜</span> <span class="prompt-user">~</span> <span class="prompt-cmd">whoami</span>
+                </div>
+                <div class="indent-block">
+                    Aspiring Full Stack MERN Developer with hands-on experience building responsive web applications using React, Node.js, Express, and MongoDB. Currently developing real-world projects and exploring modern web development practices.
+                </div>
+                <div class="prompt-line">
+                    <span class="prompt-arrow">➜</span> <span class="prompt-user">~</span> <span class="prompt-cmd">cat</span> skills.json
+                </div>
+                <div class="indent-block" style="color: #79c7ff;">
+                    {<br>
+                    &nbsp;&nbsp;<span class="json-key">"core"</span>: [<span class="json-val">"Architecture"</span>, <span class="json-val">"Clean Code"</span>, <span class="json-val">"Problem Solving"</span>],<br>
+                    &nbsp;&nbsp;<span class="json-key">"focus"</span>: <span class="json-val">"Turning complex requirements into elegant code"</span><br>
+                    }
+                </div>
+                
+                <div class="btn-group">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    
+                    <a href="resume.html" class="btn btn-secondary">
+                        <i data-lucide="download" style="width: 16px; height: 16px;"></i> Download Resume
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <aside class="profile-sidebar">
+            <div class="profile-img-container">
+                <div class="profile-avatar">
+                    <img src="imgpf.jpg" alt="">
+                </div>
+            </div>
+            <div class="profile-info">
+                <h1 class="profile-name">Bhanu pratap Patel</h1>
+                <p class="profile-title code-font">// @Aspiring fullstack_developer</p>
+                
+                <ul class="profile-meta-list code-font">
+                    <li class="profile-meta-item">
+                        <i data-lucide="map-pin" style="width: 14px; height: 14px; color: var(--syntax-red);"></i>
+                        <span>Jabalpur, MP</span>
+                    </li>
+                    <li class="profile-meta-item">
+                        <i data-lucide="link" style="width: 14px; height: 14px; color: var(--syntax-blue);"></i>
+                        <span><a href="https://github.com/BhanuJs-alt"><i data-lucide="github" style="width:16px; height:16px;"></i> GitHub</a></span>
+                    </li>
+                    <li class="profile-meta-item">
+                        <i data-lucide="terminal" style="width: 14px; height: 14px; color: #7ee787;"></i>
+                        <span>Available for Hire</span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+    </header>
+
+    <section id="stack" class="stack-section">
+        <div class="container">
+            <h2 class="section-title code-font">
+                <i data-lucide="cpu" style="width:20px; height:20px;"></i> 01. tech_stack
+            </h2>
+            <div class="matrix-grid code-font">
+                <div class="matrix-item">
+                    <i data-lucide="code-2" style="color: var(--syntax-red);"></i>
+                    <span>JavaScript/ Java/ C/ C++</span>
+                </div>
+                <div class="matrix-item">
+                    <i data-lucide="layers" style="color: var(--syntax-blue);"></i>
+                    <span>React.js</span>
+                </div>
+                <div class="matrix-item">
+                    <i data-lucide="server" style="color: #7ee787;"></i>
+                    <span>Node.js / Express</span>
+                </div>
+                <div class="matrix-item">
+                    <i data-lucide="database" style="color: var(--syntax-purple);"></i>
+                    <span>MongoDB / MySql</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="container projects-section">
+        <h2 class="section-title code-font">
+            <i data-lucide="folder-git-2" style="width:20px; height:20px;"></i> 02. featured_projects
+        </h2>
+        
+        <div class="project-grid">
+            <div class="project-card">
+                <div>
+                    <div class="card-header">
+                        <span class="card-title-file code-font">
+                            <i data-lucide="file-code" style="width:14px; height:14px; color: var(--syntax-red);"></i> project_one.js
+                        </span>
+                        <div class="card-links">
+                            <a href="https://github.com/BhanuJs-alt/weatherNow--real-time-weather-app"><i data-lucide="github" style="width:16px; height:16px;"></i></a>
+                            <a href=" https://weather-now-real-time-weather-app.vercel.app/"><i data-lucide="external-link" style="width:16px; height:16px;"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="https://github.com/BhanuJs-alt/weatherNow--real-time-weather-app"><h3>Real-time WeatherApp</h3></a>
+                        <p>A sleek, real-time weather forecasting application built with a responsive dashboard UI. This project displays current weather statistics, an hourly breakdown, and a 3-day forecast for any searched location using live API data.</p>
+                    </div>
+                </div>
+                <div class="card-tags code-font">
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">Weather-API</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div>
+                    <div class="card-header">
+                        <span class="card-title-file code-font">
+                            <i data-lucide="file-code" style="width:14px; height:14px; color: var(--syntax-blue);"></i> project_two.js
+                        </span>
+                        <div class="card-links">
+                            <a href=""><i data-lucide="github" style="width:16px; height:16px;"></i></a>
+                            <a href="https://expense-tracker-app-six-indol.vercel.app/"><i data-lucide="external-link" style="width:16px; height:16px;"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="https://github.com/BhanuJs-alt/expenseTracker-app"><h3>ExpenseTracker</h3></a>
+                        <p>A simple Expense Tracker built with HTML, CSS, and JavaScript to practice DOM manipulation, local storage, event handling, and data visualization.</p>
+                    </div>
+                </div>
+                <div class="card-tags code-font">
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer">
+        <div class="container">
+            <p class="footer-status code-font">System status: Ready for collaboration</p>
+            <div class="footer-links">
+                <a href="https://github.com/BhanuJs-alt"><i data-lucide="github" style="width:16px; height:16px;"></i> GitHub</a>
+                <a href="https://www.linkedin.com/in/bhanu-pratap-patel-b9a108355"><i data-lucide="linkedin" style="width:16px; height:16px;"></i> LinkedIn</a>
+                <a href=""><i data-lucide="mail" style="width:16px; height:16px;"></i> Email</a>
+            </div>
+            <p class="copyright">
+                &copy; 
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
